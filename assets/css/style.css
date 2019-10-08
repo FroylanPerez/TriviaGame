@@ -1,0 +1,65 @@
+#title {
+    font-size: 78px;
+    color: aqua;
+    margin: 0px 0px 0px 30px;
+}
+
+#timeRemaining {
+    font-size: 24px;
+    color: aqua;
+    margin: 60px auto;
+}
+
+#clock {
+    font-size: 30px;
+    color: aqua;
+    margin: 60px auto;
+}
+
+#secondsText {
+    font-size: 24px;
+    color: aqua;
+    margin: 60px auto;
+}
+
+#question {
+    font-size: 32px;
+    color: aqua;
+    margin: 10px auto;
+}
+
+ul {
+    font-size: 32px;
+    color: aqua;
+    margin: 10px auto;
+
+}
+
+#altDisplay {
+    font-size: 32px;
+    color: aqua;
+    margin: 5px auto;
+}
+
+.container {
+    background-color: #000080;
+    width: 880px;
+    float: none;
+    margin: 20px 315px;
+}
+
+button {
+    /* margin: 30px auto; */
+    background-color: #00FF7F;
+    padding: 10px 40px;
+    color: #800080;
+}
+
+#start {
+    margin: 10px 50px 5px 0px;
+}
+
+#startOver {
+    margin: 30px 0px 30px 40px;
+    visibility: hidden;
+}
