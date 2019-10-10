@@ -5,6 +5,7 @@ $(document).ready(function() {
         answers: ["Juan Manuel Fangio", "Ayrton Senna", "Alain Prost", "Giuseppe Farina"],  
         correctAnswer: "Giuseppe Farina",
         image: "<img src='assets/images/giuseppeFarina.jpg' width='550px'/>",
+        next: true,
         // index: answers.indexOf(correctAnswer),
         // currentCorrectAnswer: answers[index],
             // $("#question").text("The correct answer is: " + currentCorrectAnswer);
@@ -14,6 +15,7 @@ $(document).ready(function() {
         answers: ["cero", "seven", "six", "three"],       
         correctAnswer: "six", 
         image: "<img src='assets/images/mexicanos.jpg' width='550px'/>",
+        next: true,
         // index: answers.indexOf(correctAnswer),
         // currentCorrectAnswer: answers[index],
         },
@@ -22,6 +24,7 @@ $(document).ready(function() {
         answers: ["Provide greater stability", "Increase speed", "Improves breaking force", "Allow drivers to listen his technical team"],
         correctAnswer: "Increase speed",
         image: "<img src='assets/images/drs.jpg' width='550px'/>",
+        next: false,
         // index: answers.indexOf(correctAnswer),
         // currentCorrectAnswer: answers[index],
         },
@@ -32,10 +35,16 @@ $(document).ready(function() {
     var intervalTimeOver;
     var intervalWin;
     var intervalLosse;
-    var time = 11;
+    var intervalEnd;
+    var time = 31;
     var nextQuestion = false;
     var currentQuestion = 0;
     var imageShown = false;
+    var win = 0;
+    var losse = 0;
+    var questionsLength = questions.length;
+
+    console.log(questionsLength);
 
     var correctAnswerEvaluate = questions[currentQuestion].currentCorrectAnswer; // se mete en funcion count para que ahi vaya cambiando segun aumente currentQuestion
 
@@ -43,7 +52,7 @@ $(document).ready(function() {
         $("#timeRemaining").text("Time Remaining: ");
         intervalCount = setInterval(count, 1000);
         $("#secondsText").text("Seconds");
-        $("#start").css('visibility', 'hidden');
+        $("#hiddenButton").css('visibility', 'hidden');
         displayQuestionAnswers();
     });
 
@@ -82,66 +91,70 @@ $(document).ready(function() {
         $(".answersDisplay").append(questionHolder4);
     }
 
-    $(".answersDisplay").on("click", function() {
+    $(document).on("click", ".answer, .nextAnswer", function() {
 
-            var answer1 = questions[currentQuestion].answers[0];
-            var answer2 = questions[currentQuestion].answers[1];
-            var answer3 = questions[currentQuestion].answers[2];
-            var answer4 = questions[currentQuestion].answers[3];
-            var okAnswer = questions[currentQuestion].correctAnswer;
+            // var answer1 = questions[currentQuestion].answers[0];
+            // var answer2 = questions[currentQuestion].answers[1];
+            // var answer3 = questions[currentQuestion].answers[2];
+            // var answer4 = questions[currentQuestion].answers[3];
+            // var okAnswer = questions[currentQuestion].correctAnswer;
+            var clickedOption = $(this).text() // Esta variable no era necesaria, se podia meter directo al if
         
-            if(answer1 === okAnswer) {
+            if($(this).text() === questions[currentQuestion].correctAnswer) {
                 $("#clock").text("Excellent, you really like F1!!!");
                 $("#clock").css("color", "chartreuse");
                 // $("#question").css('visibility', 'hidden');
                 $("#timeRemaining").css('visibility', 'hidden');
                 $("#secondsText").css('visibility', 'hidden');
                 $(".answer").css('visibility', 'hidden');
+                $(".nextAnswer").css('visibility', 'hidden');
                 $("#altDisplay").html(questions[currentQuestion].image); 
                 clearInterval(intervalCount);
                 currentQuestion++;
+                win++;
                 intervalWin = setInterval(continueQuestionAnswers, 3000);
                 imageShown = true;
+                // finishGame();
             }
-            else if(answer2 === okAnswer) {
-                $("#clock").text("Excellent, you really like F1!!!");
-                $("#clock").css("color", "chartreuse");
-                // $("#question").css('visibility', 'hidden');
-                $("#timeRemaining").css('visibility', 'hidden');
-                $("#secondsText").css('visibility', 'hidden');
-                $(".answer").css('visibility', 'hidden');
-                $("#altDisplay").html(questions[currentQuestion].image); 
-                clearInterval(intervalCount);
-                currentQuestion++;
-                intervalWin = setInterval(continueQuestionAnswers, 3000);
-                imageShown = true;
-            }
-            else if(answer3 === okAnswer) {
-                $("#clock").text("Excellent, you really like F1!!!");
-                $("#clock").css("color", "chartreuse");
-                // $("#question").css('visibility', 'hidden');
-                $("#timeRemaining").css('visibility', 'hidden');
-                $("#secondsText").css('visibility', 'hidden');
-                $(".answer").css('visibility', 'hidden');
-                $("#altDisplay").html(questions[currentQuestion].image); 
-                clearInterval(intervalCount);
-                currentQuestion++;
-                intervalWin = setInterval(continueQuestionAnswers, 3000);
-                imageShown = true;
-            }
-            else if(answer4 === okAnswer) {
-                $("#clock").text("Excellent, you really like F1!!!");
-                $("#clock").css("color", "chartreuse");
-                // $("#question").css('visibility', 'hidden');
-                $("#timeRemaining").css('visibility', 'hidden');
-                $("#secondsText").css('visibility', 'hidden');
-                $(".answer").css('visibility', 'hidden');
-                $("#altDisplay").html(questions[currentQuestion].image); 
-                clearInterval(intervalCount);
-                currentQuestion++;
-                intervalWin = setInterval(continueQuestionAnswers, 3000);
-                imageShown = true;
-            }
+            // else if(answer2 === okAnswer) {
+            //     $("#clock").text("Excellent, you really like F1!!!");
+            //     $("#clock").css("color", "chartreuse");
+            //     // $("#question").css('visibility', 'hidden');
+            //     $("#timeRemaining").css('visibility', 'hidden');
+            //     $("#secondsText").css('visibility', 'hidden');
+            //     $(".answer").css('visibility', 'hidden');
+            //     $("#altDisplay").html(questions[currentQuestion].image); 
+            //     clearInterval(intervalCount);
+            //     currentQuestion++;
+            //     intervalWin = setInterval(continueQuestionAnswers, 3000);
+            //     imageShown = true;
+            // }
+            // else if(answer3 === okAnswer) {
+            //     $("#clock").text("Excellent, you really like F1!!!");
+            //     $("#clock").css("color", "chartreuse");
+            //     // $("#question").css('visibility', 'hidden');
+            //     $("#timeRemaining").css('visibility', 'hidden');
+            //     $("#secondsText").css('visibility', 'hidden');
+            //     $(".answer").css('visibility', 'hidden');
+            //     $("#altDisplay").html(questions[currentQuestion].image); 
+            //     clearInterval(intervalCount);
+            //     currentQuestion++;
+            //     intervalWin = setInterval(continueQuestionAnswers, 3000);
+            //     imageShown = true;
+            // }
+            // else if(answer4 === okAnswer) {
+            //     $("#clock").text("Excellent, you really like F1!!!");
+            //     $("#clock").css("color", "chartreuse");
+            //     // $("#question").css('visibility', 'hidden');
+            //     $("#timeRemaining").css('visibility', 'hidden');
+            //     $("#secondsText").css('visibility', 'hidden');
+            //     $(".answer").css('visibility', 'hidden');
+            //     $("#altDisplay").html(questions[currentQuestion].image); 
+            //     clearInterval(intervalCount);
+            //     currentQuestion++;
+            //     intervalWin = setInterval(continueQuestionAnswers, 3000);
+            //     imageShown = true;
+            // }
             else {
                 $("#clock").text("I think you don't know anything about F1!!!");
                 $("#clock").css("color", "red");
@@ -149,12 +162,22 @@ $(document).ready(function() {
                 $("#timeRemaining").css('visibility', 'hidden');
                 $("#secondsText").css('visibility', 'hidden');
                 $(".answer").css('visibility', 'hidden');
+                $(".nextAnswer").css('visibility', 'hidden');
                 $("#altDisplay").html(questions[currentQuestion].image); 
                 clearInterval(intervalCount);
                 currentQuestion++;
+                losse++;
                 intervalLosse = setInterval(continueQuestionAnswers, 3000);
                 imageShown = true;
+                // finishGame();
             }
+
+            if(currentQuestion === questionsLength) {
+                intervalEnd = setInterval(finishGame, 3000);
+            }
+
+
+
     });
 
     function TimeOver() {
@@ -175,7 +198,7 @@ $(document).ready(function() {
     }
 
     function continueQuestionAnswers() {
-        $("#altDisplay").html("<img src='assets/images/ticking.gif' width='250px'/>"); // se pone por q no encontre la forma de ocultarla y luego volverla a mostrar
+        $("#altDisplay").html("<img src='assets/images/ticking.gif' width='210px'/>"); // se pone por q no encontre la forma de ocultarla y luego volverla a mostrar
         imageShown = false;
         $("ul").remove();
         clearInterval(intervalTimeOver);
@@ -199,11 +222,40 @@ $(document).ready(function() {
         questionHolder4.addClass("nextAnswer");
         questionHolder4.text(questions[currentQuestion].answers[3]);
         $(".answersDisplay").append(questionHolder4);
-        time = 11;
+        time = 31;
         intervalCount = setInterval(count, 1000);
         $("#clock").css("color", "aqua");
-    }
+        $("#timeRemaining").css('visibility', 'visible');
+        $("#secondsText").css('visibility', 'visible');
 
+    }
+    
+    function finishGame() {
+        // if(currentQuestion === questionsLength) {
+            $("ul").remove();
+            clearInterval(intervalTimeOver);
+            clearInterval(intervalWin);
+            clearInterval(intervalLosse);
+            clearInterval(intervalCount);
+            $("#question").text("Your score in this F1 Trivia is:");  
+            $("#question").css("color", "orange");
+            $("#clock").css('visibility', 'hidden');
+            $("#timeRemaining").css('visibility', 'hidden');
+            $("#secondsText").css('visibility', 'hidden');
+            $(".nextAnswer").css('visibility', 'hidden');
+            $("#altDisplay").html("<img src='assets/images/logo.jpg' width='450px'/>"); 
+            var winHolder = $("<ul>");
+            winHolder.addClass("wins");
+            winHolder.text(win + " correct answers");
+            $(".results").append(winHolder);
+            var losseHolder = $("<ul>");
+            losseHolder.addClass("losses");
+            losseHolder.text(losse + " wrong answers");
+            $(".results").append(losseHolder);
+
+        // }
+
+    };
 
     // function userWin() {
     //     $("#clock").text("Excellent, you really like F1!!!");

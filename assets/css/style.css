@@ -1,23 +1,23 @@
 #title {
-    font-size: 78px;
+    font-size: 60px;
     color: aqua;
     margin: 0px 0px 0px 30px;
 }
 
 #timeRemaining {
-    font-size: 24px;
+    font-size: 20px;
     color: aqua;
     margin: 60px auto;
 }
 
 #clock {
-    font-size: 30px;
+    font-size: 22px;
     color: aqua;
     margin: 60px auto;
 }
 
 #secondsText {
-    font-size: 24px;
+    font-size: 20px;
     color: aqua;
     margin: 60px auto;
 }
@@ -62,4 +62,12 @@ button {
 #startOver {
     margin: 30px 0px 30px 40px;
     visibility: hidden;
+}
+
+.answer {
+    cursor: pointer;
+}
+
+.nextAnswer {
+    cursor: pointer;
 }
