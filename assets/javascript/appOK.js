@@ -36,6 +36,7 @@ $(document).ready(function() {
     var intervalWin;
     var intervalLosse;
     var intervalEnd;
+    var intervalStartOver;
     var time = 31;
     var nextQuestion = false;
     var currentQuestion = 0;
@@ -48,7 +49,7 @@ $(document).ready(function() {
 
     var correctAnswerEvaluate = questions[currentQuestion].currentCorrectAnswer; // se mete en funcion count para que ahi vaya cambiando segun aumente currentQuestion
 
-    $("#start").on("click", function() {
+    $("#start").on("click", function(start) {
         $("#timeRemaining").text("Time Remaining: ");
         intervalCount = setInterval(count, 1000);
         $("#secondsText").text("Seconds");
@@ -69,6 +70,7 @@ $(document).ready(function() {
         if(imageShown === true) {
         $("#altDisplay").css('visibility', 'hidden'); //Esta debe estar en la funcion que mande las siguientes preguntas x q sino desde el inicio la oculta y nunca la muestra
         }
+        $("ul").remove();
         clearInterval(intervalTimeOver);
         $("#question").text(questions[currentQuestion].questionText);
         $("#question").css("color", "aqua");
@@ -195,6 +197,10 @@ $(document).ready(function() {
         currentQuestion++;
         intervalTimeOver = setInterval(continueQuestionAnswers, 4000); //duda si funcionara o habra q crear nueva variable para este intervalo
         imageShown = true;
+        if(currentQuestion === questionsLength) {
+            intervalEnd = setInterval(finishGame, 3000);
+        }
+
     }
 
     function continueQuestionAnswers() {
@@ -239,7 +245,8 @@ $(document).ready(function() {
             clearInterval(intervalCount);
             $("#question").text("Your score in this F1 Trivia is:");  
             $("#question").css("color", "orange");
-            $("#clock").css('visibility', 'hidden');
+            $("#clock").text("Click in the button under the image to try again");
+            $("#clock").css("color", "pink");
             $("#timeRemaining").css('visibility', 'hidden');
             $("#secondsText").css('visibility', 'hidden');
             $(".nextAnswer").css('visibility', 'hidden');
@@ -252,37 +259,28 @@ $(document).ready(function() {
             losseHolder.addClass("losses");
             losseHolder.text(losse + " wrong answers");
             $(".results").append(losseHolder);
-
-        // }
-
+            $("#startOver").css('visibility', 'visible');
     };
 
-    // function userWin() {
-    //     $("#clock").text("Excellent, you really like F1!!!");
-    //     $("#clock").css("color", "green");
-    //     $("#question").css('visibility', 'hidden');
-    //     $("#timeRemaining").css('visibility', 'hidden');
-    //     $("#secondsText").css('visibility', 'hidden');
-    //     $(".answer").css('visibility', 'hidden');
-    //     $("#altDisplay").html(questions[currentQuestion].image); 
-    //     clearInterval(intervalCount);
-    //     currentQuestion++;
-    //     intervalWin = setInterval(continueQuestionAnswers, 3000);
-    //     imageShown = true;
-    // }
+    $("#startOver").on("click", function() {
+        time=31;
+        currentQuestion=0;
+        win=0;
+        losse=0;
+        nextQuestion=false;
+        imageShown=false;
+        start();
+        // intervalCount = setInterval(count, 1000);
+        // $("#timeRemaining").css('visibility', 'visible');
+        // $("#secondsText").css('visibility', 'visible');
+        // $("#timeRemaining").text("Time Remaining: ");
+        // intervalCount = setInterval(count, 1000);
+        // $("#secondsText").text("Seconds");
+        // $("#startOver").css('visibility', 'hidden');
+        // displayQuestionAnswers();
+        // intervalStartOver = setInterval(displayQuestionAnswers, 2000);
+    });
 
-    // function userLosse() {
-    //     $("#clock").text("I think you don't know anything about F1!!!");
-    //     $("#clock").css("color", "red");
-    //     $("#question").text("The correct answer is: " + questions[currentQuestion].correctAnswer);
-    //     $("#timeRemaining").css('visibility', 'hidden');
-    //     $("#secondsText").css('visibility', 'hidden');
-    //     $(".answer").css('visibility', 'hidden');
-    //     $("#altDisplay").html(questions[currentQuestion].image); 
-    //     clearInterval(intervalCount);
-    //     currentQuestion++;
-    //     intervalLosse = setInterval(continueQuestionAnswers, 3000);
-    //     imageShown = true;
-    // }
+
 
 })
