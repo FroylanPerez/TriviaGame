@@ -6,9 +6,6 @@ $(document).ready(function() {
         correctAnswer: "Giuseppe Farina",
         image: "<img src='assets/images/giuseppeFarina.jpg' width='550px'/>",
         next: true,
-        // index: answers.indexOf(correctAnswer),
-        // currentCorrectAnswer: answers[index],
-            // $("#question").text("The correct answer is: " + currentCorrectAnswer);
         },
         {
         questionText: "How many mexican drivers have been in F1?", 
@@ -16,8 +13,27 @@ $(document).ready(function() {
         correctAnswer: "six", 
         image: "<img src='assets/images/mexicanos.jpg' width='550px'/>",
         next: true,
-        // index: answers.indexOf(correctAnswer),
-        // currentCorrectAnswer: answers[index],
+        },
+        {
+        questionText: "Who of them is not a F1 driver?", 
+        answers: ["Charles Leclerc", "Aaron Rodgers", "Sebastian Vettel", "Sergio Perez"],       
+        correctAnswer: "Aaron Rodgers", 
+        image: "<img src='assets/images/rodgers.jpg' width='550px'/>",
+        next: true,
+        },
+        {
+        questionText: "Where was Daniel Ricciardo born?", 
+        answers: ["Mexico", "France", "Belgium", "Australia"],       
+        correctAnswer: "Australia", 
+        image: "<img src='assets/images/danielRicciardo.jpg' width='550px'/>",
+        next: true,
+        },
+        {
+        questionText: "Why did Ayrton Senna stop driving in F1?", 
+        answers: ["He was to old", "Get sick", "He had won enough races", "None of this options"],       
+        correctAnswer: "None of this options", 
+        image: "<img src='assets/images/ayrtonSenna.gif' width='550px'/>",
+        next: true,
         },
         {
         questionText: "What is the purpose of DRS device?",
@@ -25,8 +41,6 @@ $(document).ready(function() {
         correctAnswer: "Increase speed",
         image: "<img src='assets/images/drs.jpg' width='550px'/>",
         next: false,
-        // index: answers.indexOf(correctAnswer),
-        // currentCorrectAnswer: answers[index],
         },
     ];
 
@@ -47,9 +61,9 @@ $(document).ready(function() {
 
     console.log(questionsLength);
 
-    var correctAnswerEvaluate = questions[currentQuestion].currentCorrectAnswer; // se mete en funcion count para que ahi vaya cambiando segun aumente currentQuestion
+    var correctAnswerEvaluate = questions[currentQuestion].currentCorrectAnswer; 
 
-    $("#start").on("click", function(start) {
+    $(document).on("click", "#start, #startOver", function() {
         $("#timeRemaining").text("Time Remaining: ");
         intervalCount = setInterval(count, 1000);
         $("#secondsText").text("Seconds");
@@ -61,15 +75,14 @@ $(document).ready(function() {
         time--;
         $("#clock").text(time);
         if(time === 0) {
-            // currentQuestion++;   Estaba duplicado dentro de la funcion Time Over
-            TimeOver(); //falta mandar a una función que mande msj de Time Over y despues de 2 seg pase a la siguiente pregunta
+            TimeOver(); 
         }
     }
     
     function displayQuestionAnswers() {
-        if(imageShown === true) {
-        $("#altDisplay").css('visibility', 'hidden'); //Esta debe estar en la funcion que mande las siguientes preguntas x q sino desde el inicio la oculta y nunca la muestra
-        }
+        // if(imageShown === true) {
+        // $("#altDisplay").css('visibility', 'hidden'); //Esta debe estar en la funcion que mande las siguientes preguntas x q sino desde el inicio la oculta y nunca la muestra
+        // }
         $("ul").remove();
         clearInterval(intervalTimeOver);
         $("#question").text(questions[currentQuestion].questionText);
@@ -94,14 +107,7 @@ $(document).ready(function() {
     }
 
     $(document).on("click", ".answer, .nextAnswer", function() {
-
-            // var answer1 = questions[currentQuestion].answers[0];
-            // var answer2 = questions[currentQuestion].answers[1];
-            // var answer3 = questions[currentQuestion].answers[2];
-            // var answer4 = questions[currentQuestion].answers[3];
-            // var okAnswer = questions[currentQuestion].correctAnswer;
-            var clickedOption = $(this).text() // Esta variable no era necesaria, se podia meter directo al if
-        
+       
             if($(this).text() === questions[currentQuestion].correctAnswer) {
                 $("#clock").text("Excellent, you really like F1!!!");
                 $("#clock").css("color", "chartreuse");
@@ -116,47 +122,7 @@ $(document).ready(function() {
                 win++;
                 intervalWin = setInterval(continueQuestionAnswers, 3000);
                 imageShown = true;
-                // finishGame();
             }
-            // else if(answer2 === okAnswer) {
-            //     $("#clock").text("Excellent, you really like F1!!!");
-            //     $("#clock").css("color", "chartreuse");
-            //     // $("#question").css('visibility', 'hidden');
-            //     $("#timeRemaining").css('visibility', 'hidden');
-            //     $("#secondsText").css('visibility', 'hidden');
-            //     $(".answer").css('visibility', 'hidden');
-            //     $("#altDisplay").html(questions[currentQuestion].image); 
-            //     clearInterval(intervalCount);
-            //     currentQuestion++;
-            //     intervalWin = setInterval(continueQuestionAnswers, 3000);
-            //     imageShown = true;
-            // }
-            // else if(answer3 === okAnswer) {
-            //     $("#clock").text("Excellent, you really like F1!!!");
-            //     $("#clock").css("color", "chartreuse");
-            //     // $("#question").css('visibility', 'hidden');
-            //     $("#timeRemaining").css('visibility', 'hidden');
-            //     $("#secondsText").css('visibility', 'hidden');
-            //     $(".answer").css('visibility', 'hidden');
-            //     $("#altDisplay").html(questions[currentQuestion].image); 
-            //     clearInterval(intervalCount);
-            //     currentQuestion++;
-            //     intervalWin = setInterval(continueQuestionAnswers, 3000);
-            //     imageShown = true;
-            // }
-            // else if(answer4 === okAnswer) {
-            //     $("#clock").text("Excellent, you really like F1!!!");
-            //     $("#clock").css("color", "chartreuse");
-            //     // $("#question").css('visibility', 'hidden');
-            //     $("#timeRemaining").css('visibility', 'hidden');
-            //     $("#secondsText").css('visibility', 'hidden');
-            //     $(".answer").css('visibility', 'hidden');
-            //     $("#altDisplay").html(questions[currentQuestion].image); 
-            //     clearInterval(intervalCount);
-            //     currentQuestion++;
-            //     intervalWin = setInterval(continueQuestionAnswers, 3000);
-            //     imageShown = true;
-            // }
             else {
                 $("#clock").text("I think you don't know anything about F1!!!");
                 $("#clock").css("color", "red");
@@ -171,7 +137,6 @@ $(document).ready(function() {
                 losse++;
                 intervalLosse = setInterval(continueQuestionAnswers, 3000);
                 imageShown = true;
-                // finishGame();
             }
 
             if(currentQuestion === questionsLength) {
@@ -183,7 +148,6 @@ $(document).ready(function() {
     });
 
     function TimeOver() {
-        // var currentCorrectAnswer = questions[currentQuestion].answers[answerCheck]; // AQUI
         $("#clock").text("Time is Over!!!");
         $("#timeRemaining").css('visibility', 'hidden');
         $("#secondsText").css('visibility', 'hidden');
@@ -200,7 +164,6 @@ $(document).ready(function() {
         if(currentQuestion === questionsLength) {
             intervalEnd = setInterval(finishGame, 3000);
         }
-
     }
 
     function continueQuestionAnswers() {
@@ -262,14 +225,14 @@ $(document).ready(function() {
             $("#startOver").css('visibility', 'visible');
     };
 
-    $("#startOver").on("click", function() {
-        time=31;
-        currentQuestion=0;
-        win=0;
-        losse=0;
-        nextQuestion=false;
-        imageShown=false;
-        start();
+    // $("#startOver").on("click", function() {
+    //     time=31;
+    //     currentQuestion=0;
+    //     win=0;
+    //     losse=0;
+    //     nextQuestion=false;
+    //     imageShown=false;
+    //     start();
         // intervalCount = setInterval(count, 1000);
         // $("#timeRemaining").css('visibility', 'visible');
         // $("#secondsText").css('visibility', 'visible');
@@ -279,7 +242,7 @@ $(document).ready(function() {
         // $("#startOver").css('visibility', 'hidden');
         // displayQuestionAnswers();
         // intervalStartOver = setInterval(displayQuestionAnswers, 2000);
-    });
+    // });
 
 
 
