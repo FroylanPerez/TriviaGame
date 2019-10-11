@@ -63,13 +63,26 @@ $(document).ready(function() {
 
     var correctAnswerEvaluate = questions[currentQuestion].currentCorrectAnswer; 
 
-    $(document).on("click", "#start, #startOver", function() {
+    $(document).on("click", "#start, #startOver", start);
+    function start() {
+        time = 31;
+        win = 0;
+        losse = 0;
+        nextQuestion = false;
+        currentQuestion = 0;
+        imageShown = false;
+        clearInterval(intervalEnd);
+        $("#timeRemaining").css('visibility', 'visible');
+        $("#secondsText").css('visibility', 'visible');
+        $("#altDisplay").html("<img src='assets/images/ticking.gif' width='210px'/>");
         $("#timeRemaining").text("Time Remaining: ");
         intervalCount = setInterval(count, 1000);
         $("#secondsText").text("Seconds");
         $("#hiddenButton").css('visibility', 'hidden');
+        $("#startOver").css('visibility', 'hidden');
+        $("#clock").css("color", "aqua");
         displayQuestionAnswers();
-    });
+    }
 
     function count() {
         time--;
@@ -170,6 +183,7 @@ $(document).ready(function() {
         $("#altDisplay").html("<img src='assets/images/ticking.gif' width='210px'/>"); // se pone por q no encontre la forma de ocultarla y luego volverla a mostrar
         imageShown = false;
         $("ul").remove();
+        $(".nextAnswer").css('visibility', 'visible');
         clearInterval(intervalTimeOver);
         clearInterval(intervalWin);
         clearInterval(intervalLosse);
